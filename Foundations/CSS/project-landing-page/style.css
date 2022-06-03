@@ -18,8 +18,16 @@ a {
     text-decoration: none;
 }
 
-p {
+h1, h2, p {
     margin: 0;
+}
+
+h2 {
+    text-align: center;
+    font-size: 36px;
+    color: #1F2937;
+    font-weight: 800;
+    margin-top: -32px;
 }
 
 button {
@@ -35,7 +43,7 @@ button {
 .hero {
     background-color: #1f2937;
     padding: 16px 200px;
-    height: 400px;
+    height: 550px;
     display: flex;
     flex-direction: column;
 }
@@ -52,7 +60,7 @@ button {
 
 .support {
     font-size: 18px;
-    color: #E5E7EB;
+    color: darkgray;
 }
 
 .main {
@@ -82,3 +90,61 @@ button {
     /* margin: 16px; */
 }
 
+.info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 500px;
+    padding: 0px 100px;
+    gap: 64px;
+}
+
+.square {
+    height: 150px;
+    width: 150px;
+    border-radius: 12px;
+    outline: 4px solid #3882F6;
+}
+
+.cards {
+    padding: 0px 150px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+.card-content {
+    width: 150px;
+    text-align: center;
+    color: #7d7878;
+}
+
+.quote {
+    background-color: #E5E7EB;
+    display: flex;
+    flex-direction: column;
+    padding: 125px 350px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.quote-content {
+    font-size: 36px;
+    color: #1F2937;
+    font-style: italic;
+    font-weight: lighter;
+}
+
+.by {
+    font-size: 24px;
+    margin-left: auto;
+    font-weight: bold;
+}
