@@ -18,7 +18,7 @@ a {
     text-decoration: none;
 }
 
-h1, h2, p {
+h1, h2, h3, p {
     margin: 0;
 }
 
@@ -28,16 +28,6 @@ h2 {
     color: #1F2937;
     font-weight: 900;
     margin-top: -32px;
-}
-
-button {
-    background-color: #3882F6;
-    color: white;
-    padding: 12px 32px;
-    font-weight: 900;
-    margin-top: 12px;
-    border-radius: 8px;
-    border: none;
 }
 
 .hero {
@@ -74,6 +64,15 @@ button {
     font-weight: 900;
     color: #F9FAF8;
 }
+.hero-button {
+    background-color: #3882F6;
+    color: white;
+    padding: 12px 32px;
+    font-weight: 900;
+    margin-top: 12px;
+    border-radius: 8px;
+    border: none;
+}
 /* TODO: replace with image */
 .placeholder {
     background-color: gray;
@@ -91,13 +90,6 @@ button {
     padding: 0px 100px;
     gap: 64px;
 }
-.square {
-    height: 150px;
-    width: 150px;
-    border-radius: 12px;
-    outline: 4px solid #3882F6;
-}
-
 .cards {
     padding: 0px 150px;
     display: flex;
@@ -109,6 +101,12 @@ button {
     justify-content: center;
     align-items: center;
     gap: 12px;
+}
+.square {
+    height: 150px;
+    width: 150px;
+    border-radius: 12px;
+    outline: 4px solid #3882F6;
 }
 .card-content {
     width: 150px;
@@ -135,4 +133,42 @@ button {
     font-size: 24px;
     margin-left: auto;
     font-weight: 900;
+}
+
+.action,
+.action-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.action {
+    height: 300px;
+}
+.action-container {
+    background-color: #3882F6;
+    height: 100px;
+    width: 800px;
+    border-radius: 12px;
+    padding: 24px 100px;
+}
+.action-content {
+    color: white;
+}
+.action-content h3 {
+    font-size: 24px;
+}
+.action-content p {
+    font-size: 18px;
+    font-weight: 100;
+}
+.action-button {
+    color: white;
+    background-color: #3882F6;
+    border-radius: 8px;
+    outline: 2px solid white;
+    margin-left: auto;
+    padding: 8px 36px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
 }
