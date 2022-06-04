@@ -31,7 +31,7 @@ h2 {
 }
 
 .hero {
-    background-color: #1f2937;
+    background-color: #1F2937;
     padding: 16px 200px;
     height: 550px;
     display: flex;
@@ -136,7 +136,8 @@ h2 {
 }
 
 .action,
-.action-container {
+.action-container,
+footer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -171,4 +172,13 @@ h2 {
     font-size: 18px;
     font-weight: bold;
     border: none;
+}
+
+footer {
+    background-color: #1F2937;
+    color: #F9FAF8;
+    height: 100px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 100;
 }
