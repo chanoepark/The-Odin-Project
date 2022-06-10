@@ -1,3 +1,4 @@
 solution/
 desired-outcome*
+node_modules/
 .DS_Store
