@@ -1,7 +1,4 @@
 function computerPlay() {
-    // const CHOICES = ['Rock', 'Paper', 'Scissors'];
-    // const choice = Math.floor(Math.random() * 3);
-    // return CHOICES[choice];
     return ['Rock', 'Paper', 'Scissors'][Math.floor(Math.random() * 3)];
 }
 
@@ -27,28 +24,43 @@ function playRPSRound(playerChoice, computerChoice) {
 }
 
 function game() {
-    let playerScore = 0;
-    let numberOfTies = 0;
     let roundResult = '';
+    let playerChoice = '';
 
-    for (let i = 1; i <= 5; i++) {
-        playerChoice = prompt(`Rock Paper Scissors Round ${i}:`);
-        roundResult = playRPSRound(playerChoice, computerPlay());
-        console.log(roundResult);
+    const body = document.querySelector('body');
+    const buttons = document.querySelectorAll('button');
+    const playerScore = document.querySelector('#playerScore');
+    const computerScore = document.querySelector('#computerScore');
+    const resultDiv = document.createElement('div');
+    const resultText = document.createElement('p');
+    const winnerText = document.createElement('p');
 
-        if (roundResult.includes('win'))
-            playerScore += 1;
-        else if (roundResult.includes('tie'))
-            numberOfTies += 1;
+    buttons.forEach(button => 
+        button.addEventListener('click', e => {
+            if (parseInt(playerScore.textContent) >= 5 || 
+                parseInt(computerScore.textContent) >= 5)
+                return;
+            
+            playerChoice = e.target.textContent;
+            roundResult = playRPSRound(playerChoice, computerPlay());
+            resultText.textContent = roundResult;
 
-        console.log(`Your score is: ${playerScore}`);
-    }
+            if (roundResult.includes('win'))
+                playerScore.textContent = parseInt(playerScore.textContent) + 1;
+            else if (roundResult.includes('lose'))
+                computerScore.textContent = parseInt(computerScore.textContent) + 1;
 
-    const winPercentage = 100 * playerScore / (5 - numberOfTies);
-    const overallResult = winPercentage > 50 ? 'win' : 
-                          winPercentage < 50 ? 'lose' : 'tie';
+            if (playerScore.textContent === '5')
+                winnerText.textContent = 'You win overall!';
+            else if (computerScore.textContent === '5')
+                winnerText.textContent = 'You lose overall!';
+            
+            resultText.appendChild(winnerText);
+        })
+    );
 
-    console.log(`You ${overallResult} overall!`);
+    resultDiv.appendChild(resultText);
+    body.appendChild(resultDiv);
 }
 
 game();
