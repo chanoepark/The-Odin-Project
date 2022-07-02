@@ -9,6 +9,9 @@ for (let row = 0; row < GRIDSIZE; row++) {
     for (let col = 0; col < GRIDSIZE; col++) {
         const gridSquare = document.createElement('div');
         gridSquare.classList.add('grid-square');
+        gridSquare.addEventListener('mouseover', e => {
+            e.target.style.backgroundColor = 'red';
+        });
         gridRow.appendChild(gridSquare);
     }
 
