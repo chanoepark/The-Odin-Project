@@ -26,7 +26,7 @@ function divide(operand1, operand2) {
 }
 
 function checkDecimal(displayValue) {
-    if (displayValue.textContent.search('.') < 0)
+    if (displayValue.textContent.indexOf('.') < 0)
         displayValue.classList.remove('decimal');
     else
         displayValue.classList.add('decimal');
