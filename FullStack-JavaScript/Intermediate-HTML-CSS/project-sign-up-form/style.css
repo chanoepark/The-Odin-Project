@@ -30,18 +30,18 @@ body, p {
     font-family: Norse-Bold, Arial, Helvetica, sans-serif;
     width: 100%;
     justify-content: center;
-    padding: 1.5rem 0;
+    padding: 1rem 0;
     position: relative;
     top: 20vh;
 }
 
 .logo img {
-    width: 10rem;
+    width: 7rem;
 }
 
 .logo h1 {
     margin: 0;
-    font-size: 10rem;
+    font-size: 7rem;
     display: flex;
     align-items: center;
 }
@@ -57,7 +57,7 @@ body, p {
 
 .signup {
     flex: 2;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: bold;
     display: flex;
     flex-direction: column;
@@ -75,13 +75,18 @@ body, p {
     background-color: white;
     box-shadow: 0 1rem 1.5rem -1.5rem;
     width: 100%;
-    padding: 3rem 0;
+    padding-top: 1.5rem;
+    padding-bottom: 2.5rem;
+}
+
+.register-form p {
+    margin-bottom: 1rem;
 }
 
 form {
     display: flex;
     flex-wrap: wrap;
-    gap: 5rem;
+    gap: 1.5rem 5rem;
 }
 
 form, .bottom p {
@@ -89,13 +94,13 @@ form, .bottom p {
 }
 
 label {
-    font-size: 1.5rem;
+    font-size: 1.15rem;
 }
 
 input {
     font-size: 1.5rem;
     height: 2rem;
-    width: 25rem;
+    width: 17rem;
 }
 
 button {
