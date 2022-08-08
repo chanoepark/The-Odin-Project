@@ -3,7 +3,7 @@
     src: url("fonts/Norse-Bold.otf") format("opentype");
 }
 
-body {
+body, p {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -57,4 +57,60 @@ body {
 
 .signup {
     flex: 2;
+    font-size: 2rem;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5%;
+    background-color: #FAFAFA;
+}
+
+.signup p, form, button {
+    margin-left: 4rem;
+    margin-right: 12rem;
+}
+
+.register-form {
+    background-color: white;
+    box-shadow: 0 1rem 1.5rem -1.5rem;
+    width: 100%;
+    padding: 3rem 0;
+}
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5rem;
+}
+
+form, .bottom p {
+    font-weight: normal;
+}
+
+label {
+    font-size: 1.5rem;
+}
+
+input {
+    font-size: 1.5rem;
+    height: 2rem;
+    width: 25rem;
+}
+
+button {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: #596D48;
+    padding: 1rem 3rem;
+    border-radius: 8px;
+    border: none;
+    width: 18rem;
+}
+
+.bottom p a {
+    color: #596D48;
+    text-decoration: none;
+    font-weight: bold;
 }
