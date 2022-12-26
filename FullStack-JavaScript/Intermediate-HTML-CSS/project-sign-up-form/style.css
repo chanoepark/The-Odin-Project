@@ -3,6 +3,10 @@
     src: url("fonts/Norse-Bold.otf") format("opentype");
 }
 
+:root {
+    --input-width: 17rem;
+}
+
 body, p {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
@@ -71,7 +75,7 @@ body, p {
     margin-right: 12rem;
 }
 
-.register-form {
+.register {
     background-color: white;
     box-shadow: 0 1rem 1.5rem -1.5rem;
     width: 100%;
@@ -79,7 +83,7 @@ body, p {
     padding-bottom: 2.5rem;
 }
 
-.register-form p {
+.register p {
     margin-bottom: 1rem;
 }
 
@@ -100,7 +104,59 @@ label {
 input {
     font-size: 1.5rem;
     height: 2rem;
-    width: 17rem;
+    width: var(--input-width);
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 0.25rem 0.5rem;
+}
+
+input:focus {
+    outline: solid 1px #596D48;
+    box-shadow: 3px 3px 2px -2px grey;
+}
+
+#email:focus:invalid {
+    outline: solid 1px red;
+}
+
+#email:focus:valid {
+    outline: solid 1px blue;
+}
+
+#password-validation, #password-confirm {
+    display: none;
+    position: relative;
+    padding: 0.25rem;
+    width: var(--input-width);
+}
+  
+#password-validation p, #password-confirm p {
+    font-size: 0.75rem;
+    width: var(--input-width);
+    margin: 0;
+    margin-left: 0.5rem;
+}
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+    color: green;
+}
+  
+.valid:before {
+    position: relative;
+    left: -0.5rem;
+    content: "✔";
+}
+  
+/* Add a red text color and an "x" when the requirements are wrong */
+.invalid {
+    color: red;
+}
+  
+.invalid:before {
+    position: relative;
+    left: -0.5rem;
+    content: "✖";
 }
 
 button {

@@ -37,9 +37,9 @@
                 You <em>know</em> you want to.
             </p>
 
-            <div class="register-form">
+            <div class="register">
                 <p>Let's do this!</p>
-                <form action="self" method="post">
+                <form action="" method="post" id="register-form">
                     <div class="form-input">
                         <label for="first_name">First Name</label>
                         <br>
@@ -51,9 +51,9 @@
                         <input type="text" name="last_name" id="last_name">
                     </div>
                     <div class="form-input">
-                        <label for="email">Email</label>
+                        <label for="email">*Email</label>
                         <br>
-                        <input type="email" name="email" id="email">
+                        <input type="email" name="email" id="email" required>
                     </div>
                     <div class="form-input">
                         <label for="phone_number">Phone Number</label>
@@ -61,25 +61,37 @@
                         <input type="tel" name="phone_number" id="phone_number">
                     </div>
                     <div class="form-input">
-                        <label for="password">Password</label>
+                        <label for="password">*Password</label>
                         <br>
-                        <input type="password" name="password" id="password">
+                        <input type="password" name="password" id="password" minlength="8" required>
+                        <!-- Referenced W3Schools: https://www.w3schools.com/howto/howto_js_password_validation.asp -->
+                        <div id="password-validation">
+                            <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+                            <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+                            <p id="number" class="invalid">A <b>number</b></p>
+                            <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+                        </div>
                     </div>
                     <div class="form-input">
-                        <label for="confirm_password">Confirm Password</label>
+                        <label for="confirm_password">*Confirm Password</label>
                         <br>
-                        <input type="password" name="confirm_password" id="confirm_password">
+                        <input type="password" name="confirm_password" id="confirm_password" minlength="8" required>
+                        <div id="password-confirm">
+                            <p id="confirmation" class="invalid">Does <b>not</b> match password</p>
+                        </div>
                     </div>
                 </form>
             </div>
 
             <div class="bottom">
-                <button type="submit">Create Account</button>
+                <button type="submit" form="register-form" value="Submit">Create Account</button>
                 <br>
                 <br>
                 <p>Already have an account? <a href="#">Log in</a></p>
             </div>
         </div>
     </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
