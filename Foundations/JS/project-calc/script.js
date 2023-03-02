@@ -36,9 +36,13 @@ function isOperatorSelected() {
     return document.getElementsByClassName('selected').length === 1;
 }
 
+function getDisplayValue() {
+    return document.querySelector('.calc-display');
+}
+
 function operate(operator, operand1, operand2) {
     let result = 0;
-    const displayValue = document.querySelector('.calc-display');
+    const displayValue = getDisplayValue();
     
     if (operator === '+')
         result = add(operand1, operand2);
@@ -63,7 +67,7 @@ function operate(operator, operand1, operand2) {
 
 function populate(e) {
     const inputValue = e.target.textContent.trim();
-    const displayValue = document.querySelector('.calc-display');
+    const displayValue = getDisplayValue();
     const operatorSelected = isOperatorSelected;
     const isResult = document.getElementsByClassName('result');
     const hasDecimal = document.getElementsByClassName('decimal');
@@ -73,7 +77,7 @@ function populate(e) {
             return;
         displayValue.classList.add('decimal');
     } else {
-        if (displayValue.textContent === '0'
+        if (displayValue.textContent.startsWith('0')
             || displayValue.textContent === 'Div by 0'
             || (operatorSelected
                 && parseFloat(displayValue.textContent) === operand1)
@@ -102,7 +106,7 @@ digitButtons.forEach(digitButton =>
 
 const clearButton = document.querySelector('#clear');
 clearButton.addEventListener('click', () => {
-    const displayValue = document.querySelector('.calc-display');
+    const displayValue = getDisplayValue();
     const operatorSelected = document.getElementsByClassName('selected');
     
     displayValue.textContent = '0';
@@ -112,10 +116,24 @@ clearButton.addEventListener('click', () => {
         operatorSelected.item(0).classList.remove('selected');
 });
 
+const plusMinusButton = document.querySelector('#plus-minus');
+plusMinusButton.addEventListener('click', () => {
+    const displayValue = getDisplayValue();
+    if (displayValue.textContent === '0')
+        return;
+    
+    displayValue.textContent = displayValue.textContent.startsWith('-')
+                                ? displayValue.textContent.slice(1)
+                                : '-'.concat(displayValue.textContent)
+    
+    if (isOperatorSelected() && !displayValue.classList.contains('second-operand'))
+        operand1 *= -1;
+})
+
 const operatorButtons = document.querySelectorAll('.calc-operator');
 operatorButtons.forEach(operatorButton => 
     operatorButton.addEventListener('click', e => {
-        const displayValue = document.querySelector('.calc-display');
+        const displayValue = getDisplayValue();
         if (displayValue.textContent === 'Div by 0')
             return 0;
         
@@ -129,15 +147,15 @@ operatorButtons.forEach(operatorButton =>
 
 const equalButton = document.querySelector('#equal');
 equalButton.addEventListener('click', () => {
-    const validSecondOperand = document.getElementsByClassName('second-operand');
+    const secondOperand = document.getElementsByClassName('second-operand');
 
-    if (validSecondOperand.length !== 1)
+    if (secondOperand.length !== 1)
         return;
     
     const operator = document.getElementsByClassName('selected').item(0);
-    const operand2 = parseFloat(document.querySelector('.calc-display').textContent);
+    const operand2 = parseFloat(getDisplayValue().textContent);
 
     operator.classList.remove('selected');
-    validSecondOperand.item(0).classList.remove('second-operand');
+    secondOperand.item(0).classList.remove('second-operand');
     operand1 = operate(operator.textContent.trim(), operand1, operand2);
 });
