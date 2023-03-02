@@ -29,9 +29,9 @@ function isDecimal(displayValue) {
 
 function updateDecimalStatus(displayValue) {
     if (isDecimal(displayValue))
-        displayValue.classList.remove('decimal');
-    else
         displayValue.classList.add('decimal');
+    else
+        displayValue.classList.remove('decimal');
 }
 
 function isOperatorSelected() {
@@ -44,6 +44,12 @@ function isStartSecondOperand(displayValue) {
 
 function getDisplayValue() {
     return document.querySelector('.calc-display');
+}
+
+function clearOperatorButton() {
+    const operatorSelected = document.getElementsByClassName('selected');
+    if (operatorSelected.length === 1)
+        operatorSelected.item(0).classList.remove('selected');
 }
 
 function operate(operator, operand1, operand2) {
@@ -74,7 +80,7 @@ function operate(operator, operand1, operand2) {
 function populate(e) {
     const inputValue = e.target.textContent.trim();
     const displayValue = getDisplayValue();
-    const operatorSelected = isOperatorSelected;
+    const operatorSelected = isOperatorSelected();
     const isResult = document.getElementsByClassName('result');
     
     if (inputValue === '.') {
@@ -111,13 +117,10 @@ digitButtons.forEach(digitButton =>
 const clearButton = document.querySelector('#clear');
 clearButton.addEventListener('click', () => {
     const displayValue = getDisplayValue();
-    const operatorSelected = document.getElementsByClassName('selected');
-    
     displayValue.textContent = '0';
-    displayValue.classList.remove('result', 'decimal');
+    displayValue.classList.remove('result', 'decimal', 'second-operand');
 
-    if (operatorSelected.length === 1)
-        operatorSelected.item(0).classList.remove('selected');
+    clearOperatorButton();
 });
 
 const plusMinusButton = document.querySelector('#plus-minus');
@@ -138,13 +141,22 @@ const operatorButtons = document.querySelectorAll('.calc-operator');
 operatorButtons.forEach(operatorButton => 
     operatorButton.addEventListener('click', e => {
         const displayValue = getDisplayValue();
+        const secondOperand = document.getElementsByClassName('second-operand');
+
         if (displayValue.textContent === 'Div by 0')
             return 0;
         
-        if (isOperatorSelected())
-            return;
+        if (secondOperand.length === 1) {
+            const operatorSelected = 
+                document.getElementsByClassName('selected').item(0)
+                .textContent.trim();
+            operand1 = operate(operand1, 
+                               operatorSelected,
+                               parseFloat(displayValue.textContent));
+        }
         
         operand1 = parseFloat(displayValue.textContent);
+        clearOperatorButton()
         e.target.classList.add('selected');
     })
 );
