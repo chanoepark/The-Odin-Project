@@ -1,12 +1,9 @@
 let operand1 = null;
+let maxDisplayCharacters = 8;
 
 function round(num) {
     let decimalIndex = num.toString().indexOf('.');
-
-    if (decimalIndex < 0)
-        return num
-    
-    return +num.toFixed(8 - decimalIndex - 1);
+    return +num.toFixed(maxDisplayCharacters - decimalIndex - 1);
 }
 
 function add(operand1, operand2) {
@@ -18,6 +15,7 @@ function subtract(operand1, operand2) {
 }
 
 function multiply(operand1, operand2) {
+    // TODO: Handle results larger than maxDisplayCharacters
     return round(operand1 * operand2);
 }
 
@@ -25,8 +23,12 @@ function divide(operand1, operand2) {
     return round(operand1 / operand2);
 }
 
-function checkDecimal(displayValue) {
-    if (displayValue.textContent.indexOf('.') < 0)
+function isDecimal(displayValue) {
+    return displayValue.textContent.indexOf('.') >= 0
+}
+
+function updateDecimalStatus(displayValue) {
+    if (isDecimal(displayValue))
         displayValue.classList.remove('decimal');
     else
         displayValue.classList.add('decimal');
@@ -34,6 +36,10 @@ function checkDecimal(displayValue) {
 
 function isOperatorSelected() {
     return document.getElementsByClassName('selected').length === 1;
+}
+
+function isStartSecondOperand(displayValue) {
+    return isOperatorSelected() && parseFloat(displayValue.textContent) === operand1;
 }
 
 function getDisplayValue() {
@@ -60,7 +66,7 @@ function operate(operator, operand1, operand2) {
     
     displayValue.textContent = result;
     displayValue.classList.add('result');
-    checkDecimal(displayValue);
+    updateDecimalStatus(displayValue);
 
     return result;
 }
@@ -70,21 +76,20 @@ function populate(e) {
     const displayValue = getDisplayValue();
     const operatorSelected = isOperatorSelected;
     const isResult = document.getElementsByClassName('result');
-    const hasDecimal = document.getElementsByClassName('decimal');
     
     if (inputValue === '.') {
-        if (hasDecimal.length === 1)
+        if (isStartSecondOperand(displayValue))
+            displayValue.textContent = '0';
+        if (isDecimal(displayValue))
             return;
-        displayValue.classList.add('decimal');
     } else {
-        if (displayValue.textContent.startsWith('0')
+        if ((displayValue.textContent.startsWith('0') && !isDecimal(displayValue))
             || displayValue.textContent === 'Div by 0'
-            || (operatorSelected
-                && parseFloat(displayValue.textContent) === operand1)
+            || isStartSecondOperand(displayValue)
             || isResult.length === 1)
                 displayValue.textContent = '';
         
-        if (displayValue.textContent.length === 8)
+        if (displayValue.textContent.length === maxDisplayCharacters)
             return;
         
         if (operatorSelected)
@@ -92,11 +97,10 @@ function populate(e) {
         
         if (isResult.length === 1)
             isResult.item(0).classList.remove('result');
-        
-        checkDecimal(displayValue);
     }
     
     displayValue.textContent += inputValue;
+    updateDecimalStatus(displayValue);
 }
 
 const digitButtons = document.querySelectorAll('.calc-digit');
@@ -148,7 +152,6 @@ operatorButtons.forEach(operatorButton =>
 const equalButton = document.querySelector('#equal');
 equalButton.addEventListener('click', () => {
     const secondOperand = document.getElementsByClassName('second-operand');
-
     if (secondOperand.length !== 1)
         return;
     
