@@ -1,4 +1,4 @@
-let operand1 = 0;
+let operand1 = null;
 
 function round(num) {
     let decimalIndex = num.toString().indexOf('.');
@@ -32,6 +32,10 @@ function checkDecimal(displayValue) {
         displayValue.classList.add('decimal');
 }
 
+function isOperatorSelected() {
+    return document.getElementsByClassName('selected').length === 1;
+}
+
 function operate(operator, operand1, operand2) {
     let result = 0;
     const displayValue = document.querySelector('.calc-display');
@@ -60,7 +64,7 @@ function operate(operator, operand1, operand2) {
 function populate(e) {
     const inputValue = e.target.textContent.trim();
     const displayValue = document.querySelector('.calc-display');
-    const operatorSelected = document.getElementsByClassName('selected');
+    const operatorSelected = isOperatorSelected;
     const isResult = document.getElementsByClassName('result');
     const hasDecimal = document.getElementsByClassName('decimal');
     
@@ -69,18 +73,18 @@ function populate(e) {
             return;
         displayValue.classList.add('decimal');
     } else {
-        if (displayValue.textContent === '0' || 
-            displayValue.textContent === 'Div by 0' ||
-            (operatorSelected.length === 1 && 
-            parseFloat(displayValue.textContent) === operand1) || 
-            isResult.length === 1)
-            displayValue.textContent = '';
+        if (displayValue.textContent === '0'
+            || displayValue.textContent === 'Div by 0'
+            || (operatorSelected
+                && parseFloat(displayValue.textContent) === operand1)
+            || isResult.length === 1)
+                displayValue.textContent = '';
         
         if (displayValue.textContent.length === 8)
             return;
         
-        if (operatorSelected.length === 1)
-            operatorSelected.item(0).classList.add('second-operand');
+        if (operatorSelected)
+            displayValue.classList.add('second-operand');
         
         if (isResult.length === 1)
             isResult.item(0).classList.remove('result');
@@ -100,18 +104,23 @@ const clearButton = document.querySelector('#clear');
 clearButton.addEventListener('click', () => {
     const displayValue = document.querySelector('.calc-display');
     const operatorSelected = document.getElementsByClassName('selected');
+    
     displayValue.textContent = '0';
     displayValue.classList.remove('result', 'decimal');
-    operatorSelected.item(0).classList.remove('selected');
+
+    if (operatorSelected.length === 1)
+        operatorSelected.item(0).classList.remove('selected');
 });
 
 const operatorButtons = document.querySelectorAll('.calc-operator');
 operatorButtons.forEach(operatorButton => 
     operatorButton.addEventListener('click', e => {
         const displayValue = document.querySelector('.calc-display');
-
         if (displayValue.textContent === 'Div by 0')
             return 0;
+        
+        if (isOperatorSelected())
+            return;
         
         operand1 = parseFloat(displayValue.textContent);
         e.target.classList.add('selected');
